@@ -13,13 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
+import com.example.tracker.Utilities.DatabaseHelper;
 import com.example.tracker.Utilities.MyAdapter;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -30,11 +26,9 @@ public class ViewExpenses extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<DataClass> dataList;
-    private DatabaseReference databaseReference;
-    private ValueEventListener eventListener;
+    private DatabaseHelper databaseHelper;
     private SearchView searchView;
     private MyAdapter adapter;
-    private String key = "";
 
     String deletedExpense = null;
 
@@ -50,7 +44,7 @@ public class ViewExpenses extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            key = bundle.getString("Key");
+            String key = bundle.getString("Key");
         }
     }
 
@@ -87,33 +81,22 @@ public class ViewExpenses extends AppCompatActivity {
     }
 
     private void setupDatabase() {
+        databaseHelper = new DatabaseHelper(this);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Expense Tracker");
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    DataClass dataClass = itemSnapshot.getValue(DataClass.class);
-                    if (dataClass != null) {
-                        dataClass.setKey(itemSnapshot.getKey());
-                        dataList.add(dataClass);
-                    }
-                }
-                adapter.notifyDataSetChanged(); // Notify adapter after data change
-                dialog.dismiss(); // Dismiss dialog after data loading is complete
-            }
+        loadDataFromDatabase();
+        dialog.dismiss();
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                dialog.dismiss();
-            }
-        });
+    private void loadDataFromDatabase() {
+        dataList.clear();
+        dataList.addAll(databaseHelper.getAllExpenses());
+        adapter.notifyDataSetChanged();
     }
 
     private void searchList(String text) {
@@ -135,7 +118,7 @@ public class ViewExpenses extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            String expenseKeyToDelete = dataList.get(position).getKey(); // Get the key of the expense to be deleted
+            int expenseIdToDelete = dataList.get(position).getId(); // Get the ID of the expense to be deleted
 
             switch (direction) {
                 case ItemTouchHelper.LEFT:
@@ -157,7 +140,7 @@ public class ViewExpenses extends AppCompatActivity {
                             }).show();
 
                     // Delete the expense from the database
-                    deleteExpenseFromDatabase(expenseKeyToDelete);
+                    deleteExpenseFromDatabase(expenseIdToDelete);
                     break;
 
                 case ItemTouchHelper.RIGHT:
@@ -166,9 +149,8 @@ public class ViewExpenses extends AppCompatActivity {
             }
         }
 
-        private void deleteExpenseFromDatabase(String expenseKey) {
-            DatabaseReference expenseRef = FirebaseDatabase.getInstance().getReference("Expense Tracker").child(expenseKey);
-            expenseRef.removeValue();
+        private void deleteExpenseFromDatabase(int expenseId) {
+            databaseHelper.deleteExpense(expenseId);
         }
     };
 }

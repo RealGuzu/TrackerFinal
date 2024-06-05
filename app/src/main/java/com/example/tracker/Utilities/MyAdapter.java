@@ -82,5 +82,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             recCategory = itemView.findViewById(R.id.recCategory);
             recMethod = itemView.findViewById(R.id.recMethod);
         }
+
     }
+
 }

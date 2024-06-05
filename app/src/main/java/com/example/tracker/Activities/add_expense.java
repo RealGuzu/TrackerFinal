@@ -3,19 +3,24 @@ package com.example.tracker.Activities;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tracker.R;
-import com.example.tracker.Utilities.DataClass;
 import com.example.tracker.Utilities.DatabaseHelper;
 
 import java.text.DateFormat;
@@ -31,6 +36,8 @@ public class add_expense extends AppCompatActivity {
     private EditText titleEditText;
     private DatabaseHelper dbHelper;
 
+     TextView addIncome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +49,18 @@ public class add_expense extends AppCompatActivity {
         setupCategorySpinner();
         setupPaymentMethodSpinner();
         setupSubmitButton();
+        setupIncomeText();
+        setupListeners();
+        underlineText();
     }
+
+    private void setupIncomeText() {
+    }
+
+    private void underlineText() {
+        addIncome.setPaintFlags(addIncome.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    }
+
 
     private void initViews() {
         categorySpinner = findViewById(R.id.spinnerCategory);
@@ -50,6 +68,7 @@ public class add_expense extends AppCompatActivity {
         submitButton = findViewById(R.id.btnSubmit);
         amountEditText = findViewById(R.id.editTextAmount);
         titleEditText = findViewById(R.id.editExpenseName);
+        addIncome = findViewById(R.id.addIncome);
     }
 
     private void setupCategorySpinner() {
@@ -100,6 +119,55 @@ public class add_expense extends AppCompatActivity {
                 }
             }
         });
+        submitButton.setEnabled(false);  // Initially disable the submit button
+    }
+
+    private void setupListeners() {
+        titleEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateFields();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        amountEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateFields();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                validateFields();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        paymentMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                validateFields();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
     }
 
     private boolean validateFields() {
@@ -108,10 +176,9 @@ public class add_expense extends AppCompatActivity {
         String category = categorySpinner.getSelectedItem().toString();
         String paymentMethod = paymentMethodSpinner.getSelectedItem().toString();
 
-        if (title.isEmpty() || amount.isEmpty() || category.equals("Select Category") || paymentMethod.equals("Select Payment Method")) {
-            return false;
-        }
-        return true;
+        boolean isValid = !title.isEmpty() && !amount.isEmpty() && !category.equals("Select Category") && !paymentMethod.equals("Select Payment Method");
+        submitButton.setEnabled(isValid);
+        return isValid;
     }
 
     private void uploadData() {

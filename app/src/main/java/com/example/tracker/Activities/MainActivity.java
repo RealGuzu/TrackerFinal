@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,8 +28,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-
     FloatingActionButton fab;
     TextView txtViewAll;
     private MyAdapter adapter;
@@ -44,23 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize views
         fab = findViewById(R.id.fab_add);
         txtViewAll = findViewById(R.id.txtViewAll);
         recyclerView = findViewById(R.id.preview_list);
 
-        // Check for null views
-        if (fab == null) {
-            Log.e(TAG, "FloatingActionButton is null");
-        }
-        if (txtViewAll == null) {
-            Log.e(TAG, "TextView is null");
-        }
-        if (recyclerView == null) {
-            Log.e(TAG, "RecyclerView is null");
-        }
-
-        // Set listeners
         if (fab != null) {
             fab.setOnClickListener(v -> openAddExpense());
         }
@@ -68,13 +52,8 @@ public class MainActivity extends AppCompatActivity {
             txtViewAll.setOnClickListener(v -> openViewExpense());
         }
 
-        // Initialize DatabaseHelper
         dbHelper = new DatabaseHelper(this);
-
-        // Set up RecyclerView
         setupRecyclerView();
-
-        // Load data from SQLite database
         loadDataFromDatabase();
     }
 
@@ -89,17 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        if (recyclerView == null) {
-            Log.e(TAG, "RecyclerView is null in setupRecyclerView");
-            return;
-        }
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
         adapter = new MyAdapter(this, dataList);
         recyclerView.setAdapter(adapter);
 
-        // Attach ItemTouchHelper here
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
@@ -117,15 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY));
                 String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_METHOD));
 
-                // Log data to ensure it is being retrieved correctly
-                Log.d(TAG, "Data retrieved - ID: " + id + ", Title: " + title + ", Amount: " + amount +
-                        ", Category: " + category + ", Payment Method: " + paymentMethod);
-
-                // Check for null values
-                if (title == null || amount == null || category == null || paymentMethod == null) {
-                    Log.e(TAG, "Null values found in database for ID: " + id);
-                }
-
                 DataClass dataClass = new DataClass(title, amount, category, paymentMethod);
                 dataClass.setKey(String.valueOf(id));
                 dataList.add(dataClass);
@@ -135,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 cursor.close();
             }
         }
-        adapter.notifyDataSetChanged(); // Notify adapter after data change
+        adapter.notifyDataSetChanged();
     }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
@@ -154,51 +119,66 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            String expenseKeyToDelete = dataList.get(position).getKey(); // Get the key of the expense to be deleted
+            String expenseKeyToDelete = dataList.get(position).getKey();
 
-            switch (direction) {
-                case ItemTouchHelper.LEFT:
-                    deletedExpense = new Gson().toJson(dataList.get(position));
-                    dataList.remove(position);
-                    adapter.notifyItemRemoved(position);
-                    Snackbar.make(recyclerView, "Expense deleted", Snackbar.LENGTH_LONG)
-                            .setAction("Undo", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    try {
-                                        DataClass dataClass = new Gson().fromJson(deletedExpense, DataClass.class);
-                                        dataList.add(position, dataClass);
-                                        adapter.notifyItemInserted(position);
-                                        // Reinsert into database
-                                        reinsertExpenseToDatabase(dataClass);
-                                    } catch (JsonSyntaxException e) {
-                                        e.printStackTrace();
-                                    }
+            if (direction == ItemTouchHelper.LEFT) {
+                deletedExpense = new Gson().toJson(dataList.get(position));
+                dataList.remove(position);
+                adapter.notifyItemRemoved(position);
+                Snackbar.make(recyclerView, "Expense deleted", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    DataClass dataClass = new Gson().fromJson(deletedExpense, DataClass.class);
+                                    dataList.add(position, dataClass);
+                                    adapter.notifyItemInserted(position);
+                                    reinsertExpenseToDatabase(dataClass, recyclerView);
+                                } catch (JsonSyntaxException e) {
+                                    e.printStackTrace();
                                 }
-                            });
+                            }
+                        }).show();
 
-                    // Delete the expense from the database
-                    deleteExpenseFromDatabase(expenseKeyToDelete);
-                    break;
-
-                case ItemTouchHelper.RIGHT:
-                    break;
+                deleteExpenseFromDatabase(expenseKeyToDelete, recyclerView);
             }
         }
     }
 
-    private void deleteExpenseFromDatabase(String expenseKey) {
+    private void deleteExpenseFromDatabase(String expenseKey, View view) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMN_ID + "=?", new String[]{expenseKey});
+        try {
+            int rowsDeleted = db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMN_ID + "=?", new String[]{expenseKey});
+            if (rowsDeleted > 0) {
+                Snackbar.make(view, "Expense deleted successfully", Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(view, "No expense found with the given key", Snackbar.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Snackbar.make(view, "Failed to delete expense: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
     }
 
-    private void reinsertExpenseToDatabase(DataClass dataClass) {
+    private void reinsertExpenseToDatabase(DataClass dataClass, View view) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_TITLE, dataClass.getTitle());
-        values.put(DatabaseHelper.COLUMN_AMOUNT, dataClass.getAmount());
-        values.put(DatabaseHelper.COLUMN_CATEGORY, dataClass.getCategory());
-        values.put(DatabaseHelper.COLUMN_METHOD, dataClass.getPaymentMethod());
-        db.insert(DatabaseHelper.TABLE_NAME, null, values);
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.COLUMN_TITLE, dataClass.getTitle());
+            values.put(DatabaseHelper.COLUMN_AMOUNT, dataClass.getAmount());
+            values.put(DatabaseHelper.COLUMN_CATEGORY, dataClass.getCategory());
+            values.put(DatabaseHelper.COLUMN_METHOD, dataClass.getPaymentMethod());
+            db.insert(DatabaseHelper.TABLE_NAME, null, values);
+            Snackbar.make(view, "Expense reinserted successfully", Snackbar.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Snackbar.make(view, "Failed to reinsert expense: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
     }
 }

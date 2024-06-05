@@ -2,8 +2,12 @@ package com.example.tracker.Utilities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -50,12 +54,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_CATEGORY, dataClass.getCategory());
         values.put(COLUMN_METHOD, dataClass.getPaymentMethod()); // Ensure this matches the getter in DataClass
 
-
-
         int rowsAffected = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
         return rowsAffected > 0;
     }
-}
 
+    public List<DataClass> getAllExpenses() {
+        List<DataClass> expenses = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                DataClass dataClass = new DataClass();
+                dataClass.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+                dataClass.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)));
+                dataClass.setAmount(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT)));
+                dataClass.setCategory(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)));
+                dataClass.setPaymentMethod(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_METHOD)));
+                expenses.add(dataClass);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return expenses;
+    }
+
+    public void deleteExpense(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+}
 
