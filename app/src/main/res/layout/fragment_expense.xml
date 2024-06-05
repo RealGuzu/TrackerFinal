@@ -1,0 +1,131 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.expense">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Title EditText -->
+        <EditText
+            android:id="@+id/expenseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="25dp"
+            android:drawableStart="@drawable/title_icon"
+            android:hint="Title"
+            android:inputType="text" />
+
+        <!-- Amount EditText -->
+        <EditText
+            android:id="@+id/expenseAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/expenseTitle"
+            android:drawableStart="@drawable/baseline_attach_money_24"
+            android:hint="Amount"
+            android:inputType="number|numberDecimal" />
+
+        <!-- Category TextView -->
+        <TextView
+            android:id="@+id/spinCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/expenseAmount"
+            android:text="Category" />
+
+        <!-- Category Spinner -->
+        <Spinner
+            android:id="@+id/selectCategory"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/spinCategory" />
+
+        <!-- Payment Method TextView -->
+        <TextView
+            android:id="@+id/txtPaymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/selectCategory"
+            android:text="Payment Method" />
+
+        <!-- Payment Method Spinner -->
+        <Spinner
+            android:id="@+id/spinMethod"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/txtPaymentMethod" />
+
+        <!-- Display Category TextView -->
+        <TextView
+            android:id="@+id/displayCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="22dp"
+            android:layout_alignTop="@id/selectCategory"
+            android:layout_toEndOf="@id/selectCategory"
+            android:text="Display Category" />
+
+        <!-- Display Method TextView -->
+        <TextView
+            android:id="@+id/txtDisplayMeth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="22dp"
+            android:layout_alignTop="@id/spinMethod"
+            android:layout_toEndOf="@id/spinMethod"
+            android:text="Display Method" />
+
+        <!-- Save Button -->
+<!--        <Button-->
+<!--            android:id="@+id/btnSubmit"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            -->
+<!--            android:text="Save" />-->
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="32dp"
+            android:layout_below="@id/txtDisplayMeth"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/black"
+            android:padding="15dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/forward"
+            app:iconGravity="end"
+            app:iconTint="@color/white" />
+
+    </RelativeLayout>
+</FrameLayout>
