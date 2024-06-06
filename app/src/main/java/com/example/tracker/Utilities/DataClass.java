@@ -6,6 +6,16 @@ public class DataClass {
     private String category;
     private String paymentMethod;
     private String key;
+    private String type;
+
+
+
+    public DataClass(String title, String amount, String category, String paymentMethod, String type) {
+    }
+
+    public DataClass() {
+
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -23,16 +33,24 @@ public class DataClass {
         this.paymentMethod = paymentMethod;
     }
 
-    public DataClass(String title, String amount, String category, String paymentMethod) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public DataClass(String title, String amount, String category, String paymentMethod, String key, String type) {
         this.title = title;
         this.amount = amount;
         this.category = category;
         this.paymentMethod = paymentMethod;
+        this.key = key;
+        this.type = type;
     }
 
-    public DataClass() {
 
-    }
 
     public String getTitle() {
         return title;

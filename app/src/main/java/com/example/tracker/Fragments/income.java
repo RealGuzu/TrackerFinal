@@ -30,7 +30,7 @@ public class income extends Fragment {
     Spinner spinCategory, spinMethod;
     EditText inputAmount, inputTitle;
     TextView displayCategory, displayMethod;
-    String title, method, category, amount;
+    String title, method, category, amount, type;
     Button saveButton;
     DatabaseHelper databaseHelper;
 
@@ -146,14 +146,14 @@ saveButton.setOnClickListener(new View.OnClickListener() {
         method = spinMethod.getSelectedItem().toString();
         category = spinCategory.getSelectedItem().toString();
         amount = inputAmount.getText().toString().trim();
-
+// TODO       type = .getText().toString().trim();
         // Validation
         if (title.isEmpty() || method.equals("Select Payment Method") || category.equals("Select Category") || amount.isEmpty()) {
             showToast("Please fill all fields");
             return;
         }
 
-        DataClass dataClass = new DataClass(title, amount, category, method);
+        DataClass dataClass = new DataClass(title, amount, category, method, type);
 
         // Assume that the id of the expense to update is passed as an argument to the fragment
         int expenseId = getArguments().getInt("expense_id", -1);

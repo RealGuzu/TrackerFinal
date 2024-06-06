@@ -125,13 +125,16 @@ public class expense extends Fragment {
         String method = spinMethod.getSelectedItem().toString();
         String category = spinCategory.getSelectedItem().toString();
         String amount = inputAmount.getText().toString().trim();
+//TODO FINISH THIS LINE
+//        String type = 1
+
 
         if (title.isEmpty() || method.equals("Select Payment Method") || category.equals("Select Category") || amount.isEmpty()) {
             showToast("Please fill all fields");
             return;
         }
 
-        DataClass dataClass = new DataClass(title, amount, category, method);
+        DataClass dataClass = new DataClass(title, amount, category, method, type);
         int expenseId = getArguments().getInt("expense_id", -1);
 
         if (expenseId != -1) {

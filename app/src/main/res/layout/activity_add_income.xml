@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".Activities.add_expense"
+    tools:context=".Activities.add_income"
     tools:ignore="HardcodedText">
 
     <!-- Title TextView -->
@@ -20,23 +20,23 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Add Incomee"
+        android:text="Add Income"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Expense Name EditText -->
+    <!-- Income Name EditText -->
     <EditText
-        android:id="@+id/editExpenseName"
+        android:id="@+id/editIncomeName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#000000"
-        android:hint="Expense Name"
+        android:hint="Income Name"
         android:textColorHint="#616161"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
         android:textColorHint="#616161"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editExpenseName" />
+        app:layout_constraintTop_toBottomOf="@+id/editIncomeName" />
 
     <!-- Category Spinner -->
     <TextView
@@ -111,7 +111,8 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/button_color_selector"        app:backgroundTint="#919191"
+        android:backgroundTint="@color/button_color_selector"
+        app:backgroundTint="#919191"
         android:text="Submit"
         android:textColor="#FFFFFF"
         app:cornerRadius="25dp"
@@ -121,12 +122,12 @@
         app:layout_constraintTop_toBottomOf="@+id/spinMethod" />
 
     <TextView
-        android:id="@+id/addIncome"
+        android:id="@+id/addExpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
-        android:text="Add Income"
+        android:text="Add Expense"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinMethod" />
 

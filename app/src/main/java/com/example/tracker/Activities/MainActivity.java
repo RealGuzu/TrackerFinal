@@ -90,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 String amount = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_AMOUNT));
                 String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY));
                 String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_METHOD));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE)); // Assuming this column exists
 
-                DataClass dataClass = new DataClass(title, amount, category, paymentMethod);
+                DataClass dataClass = new DataClass(title, amount, category, paymentMethod, type);
                 dataClass.setKey(String.valueOf(id));
                 dataList.add(dataClass);
             }
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
     }
+
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
         private MyAdapter adapter;

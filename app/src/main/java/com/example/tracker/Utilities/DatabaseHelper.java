@@ -11,6 +11,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String COLUMN_TYPE = "type" ;
     // Define the table and column names
     private static final String DATABASE_NAME = "expenses.db";
     private static final int DATABASE_VERSION = 1;
@@ -35,7 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_AMOUNT + " TEXT, "
                 + COLUMN_DESCRIPTION + " TEXT, "
                 + COLUMN_CATEGORY + " TEXT, "
-                + COLUMN_METHOD + " TEXT)"; // Ensure COLUMN_METHOD matches the field name
+                + COLUMN_METHOD + " TEXT,"
+                + COLUMN_TYPE + "TEXT)";
         db.execSQL(CREATE_EXPENSES_TABLE);
     }
 
@@ -72,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dataClass.setAmount(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT)));
                 dataClass.setCategory(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)));
                 dataClass.setPaymentMethod(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_METHOD)));
+                dataClass.setKey(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE)));
                 expenses.add(dataClass);
             } while (cursor.moveToNext());
         }

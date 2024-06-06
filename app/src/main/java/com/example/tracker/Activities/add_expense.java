@@ -30,13 +30,14 @@ import java.util.Calendar;
 public class add_expense extends AppCompatActivity {
 
     private Spinner categorySpinner;
+
     private Spinner paymentMethodSpinner;
     private Button submitButton;
     private EditText amountEditText;
     private EditText titleEditText;
     private DatabaseHelper dbHelper;
 
-     TextView addIncome;
+   private TextView addIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,15 @@ public class add_expense extends AppCompatActivity {
     }
 
     private void setupIncomeText() {
+        TextView addIncome = findViewById(R.id.addIncome);
+        addIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddIncome();
+            }
+        });
     }
+
 
     private void underlineText() {
         addIncome.setPaintFlags(addIncome.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -186,6 +195,7 @@ public class add_expense extends AppCompatActivity {
         String amount = amountEditText.getText().toString();
         String category = categorySpinner.getSelectedItem().toString();
         String paymentMethod = paymentMethodSpinner.getSelectedItem().toString();
+        String type = determineType(category); // Method to determine if it's income or expense
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 
         ContentValues values = new ContentValues();
@@ -193,6 +203,7 @@ public class add_expense extends AppCompatActivity {
         values.put(DatabaseHelper.COLUMN_AMOUNT, amount);
         values.put(DatabaseHelper.COLUMN_CATEGORY, category);
         values.put(DatabaseHelper.COLUMN_METHOD, paymentMethod);
+        values.put(DatabaseHelper.COLUMN_TYPE, type); // Save type to database
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -207,6 +218,16 @@ public class add_expense extends AppCompatActivity {
         }
     }
 
+    private String determineType(String category) {
+        // Determine if it's income or expense based on category
+        if (category.equals("Salary") || category.equals("Business")) {
+            return "income";
+        } else {
+            return "expense";
+        }
+    }
+
+
     private void openHome() {
         String amount = amountEditText.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
@@ -216,5 +237,11 @@ public class add_expense extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void openAddIncome(){
+        Intent intent = new Intent(this, add_income.class);
+        startActivity(intent);
+
     }
 }
