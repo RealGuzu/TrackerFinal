@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DatabaseHelper;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -66,7 +64,15 @@ public class add_income extends AppCompatActivity {
         categories.add("Salary");
         categories.add("Business");
         categories.add("Investment");
-        categories.add("Gift");
+        categories.add("Rental Income");
+        categories.add("Interest Income");
+        categories.add("Dividends");
+        categories.add("Capital Gains");
+        categories.add("Royalties");
+        categories.add("Freelance Income");
+        categories.add("Commission");
+        categories.add("Bonus");
+        categories.add("Gifts");
         categories.add("Other");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);

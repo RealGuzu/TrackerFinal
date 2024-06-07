@@ -143,7 +143,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/incomeTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="J$0.00"
@@ -216,18 +216,16 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:text="Add Transaction"
-        android:tint="#FFFFFF"
-        app:backgroundTint="#3F51B5"
-        app:iconTint="#FFFFFF"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
+        app:backgroundTint="#3C3C3C"
+        app:iconTint="@android:color/white"
         app:rippleColor="#33191919"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintVertical_bias="0.95"/>
+        app:layout_constraintVertical_bias="0.95" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddExpense"
@@ -236,8 +234,21 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/money_decrease"
-        app:backgroundTint="#919191"
+        app:backgroundTint="#D32F2F"
+        app:tint="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/money_increase"
+        app:backgroundTint="#388E3C"
+        app:tint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -252,17 +263,6 @@
         app:layout_constraintBottom_toBottomOf="@id/fabAddExpense"
         app:layout_constraintEnd_toStartOf="@id/fabAddExpense"
         app:layout_constraintTop_toTopOf="@id/fabAddExpense" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/money_increase"
-        app:backgroundTint="#919191"
-        app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/addIncomeText"

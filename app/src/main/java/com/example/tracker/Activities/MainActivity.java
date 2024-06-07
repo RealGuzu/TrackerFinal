@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     private FloatingActionButton fabAddIncome;
     private TextView addExpenseText;
     private TextView addIncomeText;
+    private TextView txtTotal;
 
     TextView txtViewAll, txtAddExpense, txtAddIncome;
     Boolean isAllAvailable;
@@ -51,16 +52,27 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     RecyclerView recyclerView;
     private String deletedExpense;
     private int pos;
-    private TextView totalexpense,totalIncome;
+    private TextView totalexpense,totalincome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        initVews();
+        setupRecyclerView();
+        loadDataFromDatabase();
+        updateExpense();
+        updateIncome();
+        hideFabMenu();
+    }
+
+    private void initVews() {
         // Initialize UI components
         totalexpense = findViewById(R.id.txtExpenseTotal);
-        totalIncome = findViewById(R.id.txtIncomeTotal);
+        totalincome = findViewById(R.id.incomeTotal);
         fab = findViewById(R.id.fab);
         fabAddExpense = findViewById(R.id.fabAddExpense);
         fabAddIncome = findViewById(R.id.fabAddIncome);
@@ -68,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         addIncomeText = findViewById(R.id.addIncomeText);
         txtViewAll = findViewById(R.id.txtViewAll);
         recyclerView = findViewById(R.id.preview_list);
+        txtTotal = findViewById(R.id.txt_total);
 
         // Set click listeners
         if (fab != null) {
@@ -84,13 +97,6 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         }
 
         dbHelper = new DatabaseHelper(this);
-
-        setupRecyclerView();
-        loadDataFromDatabase();
-        updateExpense();
-
-        // Initially hide the extended FAB options
-        hideFabMenu();
     }
 
     private void toggleFabMenu() {
@@ -316,14 +322,47 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     }
 
     private void updateExpense() {
-        double total = 0;
+        double totalExpense = 0;
         for (int i = 0; i < adapter.getItemCount(); i++) {
-            total += Double.parseDouble(dataList.get(i).getAmount());
+            DataClass data = dataList.get(i);
+            if (data.getType().equals("expense")) {
+                totalExpense += Double.parseDouble(data.getAmount());
+            }
         }
         Currency usd = Currency.getInstance("USD");
         NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        String formattedUSD = usdFormat.format(total);
-        totalexpense.setText(formattedUSD);
+        String formattedExpense = usdFormat.format(totalExpense);
+        totalexpense.setText(formattedExpense);
+    }
+
+    private void updateIncome() {
+        double totalIncome = 0;
+        double totalExpense = 0;
+
+        // Calculate total expense
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            DataClass data = dataList.get(i);
+            if (data.getType().equals("expense")) {
+                totalExpense += Double.parseDouble(data.getAmount());
+            }
+        }
+
+        // Calculate total income
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            DataClass data = dataList.get(i);
+            if (data.getType().equals("income")) {
+                totalIncome += Double.parseDouble(data.getAmount());
+            }
+        }
+
+        // Deduct total expense from total income
+        totalIncome -= totalExpense;
+
+        Currency usd = Currency.getInstance("USD");
+        NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String formattedIncome = usdFormat.format(totalIncome);
+        totalincome.setText(formattedIncome);
+        txtTotal.setText(formattedIncome);
     }
 
 }

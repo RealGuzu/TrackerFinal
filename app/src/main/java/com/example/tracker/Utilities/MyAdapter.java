@@ -29,6 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.context = context;
         this.dataList = dataList;
         this.onTransactionCLick = onTransactionCLick;
+
     }
 
     @NonNull
@@ -42,6 +43,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DataClass data = dataList.get(position);
         int pos = position;
+// Ensure corner radius is applied
+        float cornerRadius = context.getResources().getDimension(R.dimen.card_corner_radius);
+        holder.recCard.setRadius(cornerRadius);
 
         // Log data for debugging
         Log.d(TAG, "Binding data at position: " + position + " with title: " + data.getTitle()
