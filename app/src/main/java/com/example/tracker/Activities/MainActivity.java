@@ -1,5 +1,8 @@
 package com.example.tracker.Activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,8 +37,12 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements onTransactionCLick {
 
-//    FloatingActionButton addExpense, add;
-    FloatingActionButton fab;
+    private ExtendedFloatingActionButton fab;
+    private FloatingActionButton fabAddExpense;
+    private FloatingActionButton fabAddIncome;
+    private TextView addExpenseText;
+    private TextView addIncomeText;
+
     TextView txtViewAll, txtAddExpense, txtAddIncome;
     Boolean isAllAvailable;
     private MyAdapter adapter;
@@ -44,20 +51,33 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     RecyclerView recyclerView;
     private String deletedExpense;
     private int pos;
-    private TextView totalexpense;
+    private TextView totalexpense,totalIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        totalexpense=findViewById(R.id.txtExpenseTotal);
 
+        // Initialize UI components
+        totalexpense = findViewById(R.id.txtExpenseTotal);
+        totalIncome = findViewById(R.id.txtIncomeTotal);
         fab = findViewById(R.id.fab);
+        fabAddExpense = findViewById(R.id.fabAddExpense);
+        fabAddIncome = findViewById(R.id.fabAddIncome);
+        addExpenseText = findViewById(R.id.addExpenseText);
+        addIncomeText = findViewById(R.id.addIncomeText);
         txtViewAll = findViewById(R.id.txtViewAll);
         recyclerView = findViewById(R.id.preview_list);
 
+        // Set click listeners
         if (fab != null) {
-            fab.setOnClickListener(v -> openAddExpense());
+            fab.setOnClickListener(v -> toggleFabMenu());
+        }
+        if (fabAddExpense != null) {
+            fabAddExpense.setOnClickListener(v -> openAddExpense());
+        }
+        if (fabAddIncome != null) {
+            fabAddIncome.setOnClickListener(v -> openAddIncome());
         }
         if (txtViewAll != null) {
             txtViewAll.setOnClickListener(v -> openViewExpense());
@@ -69,6 +89,86 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         loadDataFromDatabase();
         updateExpense();
 
+        // Initially hide the extended FAB options
+        hideFabMenu();
+    }
+
+    private void toggleFabMenu() {
+        if (fabAddExpense.getVisibility() == View.VISIBLE) {
+            hideFabMenu();
+        } else {
+            showFabMenu();
+        }
+    }
+
+    private void hideFabMenu() {
+        animateFab(fabAddExpense, View.GONE);
+        animateFab(fabAddIncome, View.GONE);
+        animateFabText(addExpenseText, View.GONE);
+        animateFabText(addIncomeText, View.GONE);
+    }
+
+    private void showFabMenu() {
+        animateFab(fabAddExpense, View.VISIBLE);
+        animateFab(fabAddIncome, View.VISIBLE);
+        animateFabText(addExpenseText, View.VISIBLE);
+        animateFabText(addIncomeText, View.VISIBLE);
+    }
+
+    private void animateFab(final View fab, final int visibility) {
+        float translationY = visibility == View.VISIBLE ? 0f : fab.getHeight() + getResources().getDimension(R.dimen.fab_margin);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(fab, "translationY", translationY);
+
+        if (visibility == View.VISIBLE) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setAlpha(0f);
+            fab.animate()
+                    .alpha(1f)
+                    .setDuration(200)
+                    .setListener(null)
+                    .start();
+        } else {
+            fab.animate()
+                    .alpha(0f)
+                    .setDuration(200)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fab.setVisibility(visibility);
+                        }
+                    }).start();
+        }
+
+        animator.setDuration(200);
+        animator.start();
+    }
+
+    private void animateFabText(final View textView, final int visibility) {
+        float translationY = visibility == View.VISIBLE ? 0f : textView.getHeight() + getResources().getDimension(R.dimen.fab_margin);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(textView, "translationY", translationY);
+
+        if (visibility == View.VISIBLE) {
+            textView.setVisibility(View.VISIBLE);
+            textView.setAlpha(0f);
+            textView.animate()
+                    .alpha(1f)
+                    .setDuration(200)
+                    .setListener(null)
+                    .start();
+        } else {
+            textView.animate()
+                    .alpha(0f)
+                    .setDuration(200)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            textView.setVisibility(visibility);
+                        }
+                    }).start();
+        }
+
+        animator.setDuration(200);
+        animator.start();
     }
 
     private void openViewExpense() {
@@ -78,6 +178,13 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
 
     private void openAddExpense() {
         Intent intent = new Intent(this, add_expense.class);
+        intent.putExtra("type", "expense"); // Pass type as expense
+        startActivity(intent);
+    }
+
+    private void openAddIncome() {
+        Intent intent = new Intent(this, add_income.class);
+        intent.putExtra("type", "expense"); // Pass type as expense
         startActivity(intent);
     }
 
@@ -104,9 +211,9 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
                 String amount = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_AMOUNT));
                 String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY));
                 String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_METHOD));
-//                String type = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE)); // Assuming this column exists
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE)); // Get type
 
-                DataClass dataClass = new DataClass(title, amount, category, paymentMethod);
+                DataClass dataClass = new DataClass(title, amount, category, paymentMethod, type); // Include type
                 dataClass.setKey(String.valueOf(id));
                 dataList.add(dataClass);
             }
@@ -118,16 +225,16 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         adapter.notifyDataSetChanged();
     }
 
+
     @Override
     public void onTransactionItemClick(int position) {
-        pos=position;
+        pos = position;
 
         Intent intent = new Intent(getApplicationContext(), DetailedView.class);
         intent.putParcelableArrayListExtra("dataList", (ArrayList<? extends Parcelable>) dataList);
 
         startActivity(intent);
     }
-
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
         private MyAdapter adapter;
@@ -208,16 +315,15 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         }
     }
 
-    private void updateExpense()
-    {
-        double total=0;
+    private void updateExpense() {
+        double total = 0;
         for (int i = 0; i < adapter.getItemCount(); i++) {
-             total=+Double.parseDouble(dataList.get(pos).getAmount());
+            total += Double.parseDouble(dataList.get(i).getAmount());
         }
         Currency usd = Currency.getInstance("USD");
         NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
         String formattedUSD = usdFormat.format(total);
         totalexpense.setText(formattedUSD);
-
     }
+
 }

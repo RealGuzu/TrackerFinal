@@ -36,6 +36,7 @@ public class add_expense extends AppCompatActivity {
     private EditText amountEditText;
     private EditText titleEditText;
     private DatabaseHelper dbHelper;
+    private String type;
 
    private TextView addIncome;
 
@@ -50,34 +51,17 @@ public class add_expense extends AppCompatActivity {
         setupCategorySpinner();
         setupPaymentMethodSpinner();
         setupSubmitButton();
-        setupIncomeText();
         setupListeners();
-        underlineText();
     }
-
-    private void setupIncomeText() {
-        TextView addIncome = findViewById(R.id.addIncome);
-        addIncome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddIncome();
-            }
-        });
-    }
-
-
-    private void underlineText() {
-        addIncome.setPaintFlags(addIncome.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-    }
-
-
     private void initViews() {
         categorySpinner = findViewById(R.id.spinnerCategory);
         paymentMethodSpinner = findViewById(R.id.spinMethod);
         submitButton = findViewById(R.id.btnSubmit);
         amountEditText = findViewById(R.id.editTextAmount);
         titleEditText = findViewById(R.id.editExpenseName);
-        addIncome = findViewById(R.id.addIncome);
+
+        type = getIntent().getStringExtra("type");
+
     }
 
     private void setupCategorySpinner() {

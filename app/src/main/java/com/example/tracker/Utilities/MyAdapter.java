@@ -2,6 +2,7 @@ package com.example.tracker.Utilities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.recCategory.setText(data.getCategory());
         holder.recMethod.setText(data.getPaymentMethod());
 
+        if ("expense".equals(data.getType())) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFCDD2")); // Set your expense color
+        } else if ("income".equals(data.getType())) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#C8E6C9")); // Set your income color
+        }
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

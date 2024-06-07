@@ -203,16 +203,16 @@
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_transactions"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Floating Action Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -229,48 +229,52 @@
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintVertical_bias="0.95"/>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabAddExpense"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:src="@drawable/money_decrease"-->
-<!--        app:backgroundTint="#919191"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/fab"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/money_decrease"
+        app:backgroundTint="#919191"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Add Expense"-->
-<!--        android:id="@+id/addExpenseText"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/fabAddExpense"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/fabAddExpense"-->
-<!--        app:layout_constraintTop_toTopOf="@id/fabAddExpense"-->
-<!--        />-->
+    <TextView
+        android:id="@+id/addExpenseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:padding="@dimen/fab_text_padding"
+        android:text="Add Expense"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@id/fabAddExpense"
+        app:layout_constraintEnd_toStartOf="@id/fabAddExpense"
+        app:layout_constraintTop_toTopOf="@id/fabAddExpense" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabAddIncome"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:src="@drawable/money_increase"-->
-<!--        app:backgroundTint="#919191"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/money_increase"
+        app:backgroundTint="#919191"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Add Income"-->
-<!--        android:id="@+id/addIncomeText"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/fabAddIncome"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/fabAddIncome"-->
-<!--        app:layout_constraintTop_toTopOf="@id/fabAddIncome"-->
-<!--        />-->
+    <TextView
+        android:id="@+id/addIncomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:padding="@dimen/fab_text_padding"
+        android:text="Add Income"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@id/fabAddIncome"
+        app:layout_constraintEnd_toStartOf="@id/fabAddIncome"
+        app:layout_constraintTop_toTopOf="@id/fabAddIncome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

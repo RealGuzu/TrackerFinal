@@ -11,10 +11,9 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String COLUMN_TYPE = "type" ;
-    // Define the table and column names
+    public static final String COLUMN_TYPE = "type";
     private static final String DATABASE_NAME = "expenses.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Incremented version to trigger onUpgrade
 
     public static final String TABLE_NAME = "expenses";
     public static final String COLUMN_ID = "id";
@@ -22,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_CATEGORY = "category";
-    public static final String COLUMN_METHOD = "method"; // Changed to match the column in onCreate
+    public static final String COLUMN_METHOD = "method";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,26 +35,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_AMOUNT + " TEXT, "
                 + COLUMN_DESCRIPTION + " TEXT, "
                 + COLUMN_CATEGORY + " TEXT, "
-                + COLUMN_METHOD + " TEXT,"
-                + COLUMN_TYPE + "TEXT)";
+                + COLUMN_METHOD + " TEXT, "
+                + COLUMN_TYPE + " TEXT)"; // Added a space before TEXT
         db.execSQL(CREATE_EXPENSES_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < newVersion) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COLUMN_TYPE + " TEXT;");
+        }
     }
 
-    // Method to update an expense in the database
     public boolean updateExpense(DataClass dataClass, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, dataClass.getTitle());
         values.put(COLUMN_AMOUNT, dataClass.getAmount());
         values.put(COLUMN_CATEGORY, dataClass.getCategory());
-        values.put(COLUMN_METHOD, dataClass.getPaymentMethod()); // Ensure this matches the getter in DataClass
-        values.put(COLUMN_METHOD, dataClass.getType());
+        values.put(COLUMN_METHOD, dataClass.getPaymentMethod());
+        values.put(COLUMN_TYPE, dataClass.getType()); // Fixed column name
         int rowsAffected = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
         return rowsAffected > 0;
@@ -74,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dataClass.setAmount(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT)));
                 dataClass.setCategory(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)));
                 dataClass.setPaymentMethod(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_METHOD)));
-                dataClass.setKey(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE)));
+                dataClass.setType(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE))); // Fixed column name
                 expenses.add(dataClass);
             } while (cursor.moveToNext());
         }
@@ -89,4 +88,3 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 }
-
