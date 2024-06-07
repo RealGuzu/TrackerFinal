@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="income_categories">
+        <item>Salary</item>
+        <item>Business</item>
+        <item>Investment</item>
+        <item>Rental Income</item>
+        <item>Interest Income</item>
+        <item>Dividends</item>
+        <item>Capital Gains</item>
+        <item>Royalties</item>
+        <item>Freelance Income</item>
+        <item>Commission</item>
+        <item>Bonus</item>
+        <item>Gifts</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="payment_methods">
+        <item>Cash</item>
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+        <item>Bank Transfer</item>
+        <item>Mobile Payment</item>
+        <item>Other</item>
+    </string-array>
+
+
+</resources>

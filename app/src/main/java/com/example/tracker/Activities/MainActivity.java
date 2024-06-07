@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         loadDataFromDatabase();
         updateExpense();
         updateIncome();
+        // Initially hide the extended FAB options
         hideFabMenu();
     }
 

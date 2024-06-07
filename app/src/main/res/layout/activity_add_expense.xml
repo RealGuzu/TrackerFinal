@@ -16,10 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/playfair2"
-        android:shadowColor="@color/text_shadow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
         android:text="Add Expense"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -28,66 +24,84 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Expense Name EditText -->
-    <EditText
-        android:id="@+id/editExpenseName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilExpenseName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="140dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#000000"
-        android:hint="Expense Name"
-        android:textColorHint="#616161"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editExpenseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Expense Name"
+            android:textColorHint="#616161" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Amount EditText -->
-    <EditText
-        android:id="@+id/editTextAmount"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#000000"
-        android:hint="Amount"
-        android:inputType="numberDecimal"
-        android:textColorHint="#616161"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editExpenseName" />
+        app:layout_constraintTop_toBottomOf="@+id/tilExpenseName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:inputType="numberDecimal"
+            android:textColorHint="#616161" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Category Spinner -->
     <TextView
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:text="Category"
         android:textColor="#616161"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/tilAmount" />
 
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCategory"
+        android:background="@drawable/spinner_background_with_arrow"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:spinnerMode="dropdown" />
 
     <!-- Payment Method TextView -->
     <TextView
         android:id="@+id/txtPaymentMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:text="Payment Method"
         android:textColor="#616161"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,12 +112,18 @@
         android:id="@+id/spinMethod"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPaymentMethod" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPaymentMethod"
+        android:background="@drawable/spinner_background_with_arrow"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:spinnerMode="dropdown" />
 
     <!-- Submit Button -->
     <com.google.android.material.button.MaterialButton
@@ -111,9 +131,11 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/button_color_selector"        app:backgroundTint="#919191"
+        android:backgroundTint="@color/button_color_selector"
+        app:backgroundTint="#919191"
         android:text="Submit"
         android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,3 +143,4 @@
         app:layout_constraintTop_toBottomOf="@+id/spinMethod" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

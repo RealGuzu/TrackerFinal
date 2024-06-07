@@ -41,4 +41,6 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.android.material:material:1.9.0'
+
 }

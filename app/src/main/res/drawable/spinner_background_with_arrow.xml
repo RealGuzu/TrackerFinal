@@ -1,0 +1,7 @@
+<!-- spinner_background_with_arrow.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/spinner_background"/>
+    <item
+        android:drawable="@drawable/ic_dropdown"
+        android:gravity="end|center_vertical"/>
+</layer-list>
