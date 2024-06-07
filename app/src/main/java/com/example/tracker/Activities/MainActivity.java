@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,30 +19,40 @@ import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
 import com.example.tracker.Utilities.DatabaseHelper;
 import com.example.tracker.Utilities.MyAdapter;
+import com.example.tracker.Utilities.onTransactionCLick;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements onTransactionCLick {
 
+//    FloatingActionButton addExpense, add;
     FloatingActionButton fab;
-    TextView txtViewAll;
+    TextView txtViewAll, txtAddExpense, txtAddIncome;
+    Boolean isAllAvailable;
     private MyAdapter adapter;
     private List<DataClass> dataList;
     private DatabaseHelper dbHelper;
     RecyclerView recyclerView;
     private String deletedExpense;
+    private int pos;
+    private TextView totalexpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        totalexpense=findViewById(R.id.txtExpenseTotal);
 
-        fab = findViewById(R.id.fab_add);
+        fab = findViewById(R.id.fab);
         txtViewAll = findViewById(R.id.txtViewAll);
         recyclerView = findViewById(R.id.preview_list);
 
@@ -53,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         dbHelper = new DatabaseHelper(this);
+
         setupRecyclerView();
         loadDataFromDatabase();
+        updateExpense();
+
     }
 
     private void openViewExpense() {
@@ -71,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
-        adapter = new MyAdapter(this, dataList);
+        adapter = new MyAdapter(this, dataList, this);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
@@ -90,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 String amount = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_AMOUNT));
                 String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY));
                 String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_METHOD));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE)); // Assuming this column exists
+//                String type = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE)); // Assuming this column exists
 
-                DataClass dataClass = new DataClass(title, amount, category, paymentMethod, type);
+                DataClass dataClass = new DataClass(title, amount, category, paymentMethod);
                 dataClass.setKey(String.valueOf(id));
                 dataList.add(dataClass);
             }
@@ -102,6 +116,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onTransactionItemClick(int position) {
+        pos=position;
+
+        Intent intent = new Intent(getApplicationContext(), DetailedView.class);
+        intent.putParcelableArrayListExtra("dataList", (ArrayList<? extends Parcelable>) dataList);
+
+        startActivity(intent);
     }
 
 
@@ -182,5 +206,18 @@ public class MainActivity extends AppCompatActivity {
                 db.close();
             }
         }
+    }
+
+    private void updateExpense()
+    {
+        double total=0;
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+             total=+Double.parseDouble(dataList.get(pos).getAmount());
+        }
+        Currency usd = Currency.getInstance("USD");
+        NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String formattedUSD = usdFormat.format(total);
+        totalexpense.setText(formattedUSD);
+
     }
 }

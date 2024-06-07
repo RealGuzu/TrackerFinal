@@ -22,10 +22,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private static final String TAG = "MyAdapter";
     private Context context;
     private List<DataClass> dataList;
+    private onTransactionCLick onTransactionCLick;
 
-    public MyAdapter(Context context, List<DataClass> dataList) {
+    public MyAdapter(Context context, List<DataClass> dataList, onTransactionCLick onTransactionCLick) {
         this.context = context;
         this.dataList = dataList;
+        this.onTransactionCLick = onTransactionCLick;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DataClass data = dataList.get(position);
+        int pos = position;
 
         // Log data for debugging
         Log.d(TAG, "Binding data at position: " + position + " with title: " + data.getTitle()
@@ -53,9 +56,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailedView.class);
-                intent.putExtra("Key", dataList.get(holder.getAdapterPosition()).getKey());
-                context.startActivity(intent);
+                onTransactionCLick.onTransactionItemClick(pos);
+
             }
         });
     }

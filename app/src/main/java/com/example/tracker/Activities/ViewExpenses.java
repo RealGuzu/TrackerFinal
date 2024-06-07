@@ -10,7 +10,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.tracker.Utilities.onTransactionCLick;
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
 import com.example.tracker.Utilities.DatabaseHelper;
@@ -22,7 +22,7 @@ import com.google.gson.JsonSyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewExpenses extends AppCompatActivity {
+public class ViewExpenses extends AppCompatActivity implements onTransactionCLick {
 
     private RecyclerView recyclerView;
     private List<DataClass> dataList;
@@ -57,7 +57,7 @@ public class ViewExpenses extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
-        adapter = new MyAdapter(this, dataList);
+        adapter = new MyAdapter(this, dataList, this);
         recyclerView.setAdapter(adapter);
 
         // Attach ItemTouchHelper here
@@ -153,4 +153,9 @@ public class ViewExpenses extends AppCompatActivity {
             databaseHelper.deleteExpense(expenseId);
         }
     };
+
+    @Override
+    public void onTransactionItemClick(int position) {
+
+    }
 }

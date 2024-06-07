@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_AMOUNT, dataClass.getAmount());
         values.put(COLUMN_CATEGORY, dataClass.getCategory());
         values.put(COLUMN_METHOD, dataClass.getPaymentMethod()); // Ensure this matches the getter in DataClass
-
+        values.put(COLUMN_METHOD, dataClass.getType());
         int rowsAffected = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
         return rowsAffected > 0;
