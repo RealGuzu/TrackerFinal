@@ -9,21 +9,20 @@
     tools:context=".Activities.add_expense"
     tools:ignore="HardcodedText">
 
-    <!-- Title TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtAddTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:fontFamily="@font/playfair2"
+        android:fontFamily="@font/roboto_reg"
         android:text="Add Expense"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:textColor="#333333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Expense Name EditText -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilExpenseName"
         android:layout_width="0dp"
@@ -33,7 +32,11 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddTitle">
+        app:layout_constraintTop_toBottomOf="@+id/txtAddTitle"
+        app:boxStrokeColor="#4169E1"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="#E0E0E0"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editExpenseName"
@@ -44,7 +47,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Amount EditText -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilAmount"
         android:layout_width="0dp"
@@ -54,7 +56,11 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilExpenseName">
+        app:layout_constraintTop_toBottomOf="@+id/tilExpenseName"
+        app:endIconMode="clear_text"
+        app:boxStrokeColor="#4169E1"
+        app:boxBackgroundColor="#E0E0E0"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextAmount"
@@ -66,7 +72,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Category Spinner -->
     <TextView
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
@@ -95,7 +100,6 @@
         android:paddingBottom="12dp"
         android:spinnerMode="dropdown" />
 
-    <!-- Payment Method TextView -->
     <TextView
         android:id="@+id/txtPaymentMethod"
         android:layout_width="wrap_content"
@@ -107,7 +111,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
-    <!-- Payment Method Spinner -->
     <Spinner
         android:id="@+id/spinMethod"
         android:layout_width="0dp"
@@ -125,22 +128,25 @@
         android:paddingBottom="12dp"
         android:spinnerMode="dropdown" />
 
-    <!-- Submit Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmit"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:elevation="4dp"
+        app:icon="@drawable/fab_add"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/button_color_selector"
-        app:backgroundTint="#919191"
+        android:backgroundTint="#ECEFF5"
         android:text="Submit"
-        android:textColor="#FFFFFF"
+        android:textColor="#4176E1"
+        app:iconTint="#4176E1"
         android:layout_marginBottom="16dp"
-        app:cornerRadius="25dp"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinMethod" />
+        app:layout_constraintTop_toBottomOf="@+id/spinMethod"
+        android:stateListAnimator="@null"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

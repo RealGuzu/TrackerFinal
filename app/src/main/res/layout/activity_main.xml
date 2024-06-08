@@ -4,281 +4,282 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C3C3C3"
+    android:background="#F5F5F5"
     tools:context=".Activities.MainActivity">
 
+<TextView
+android:id="@+id/toolbarTitle"
+style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="10dp"
+android:layout_marginStart="148dp"
+android:layout_marginTop="16dp"
+android:fontFamily="@font/roboto_reg"
+android:text="My Wallet"
+android:textColor="#333333"
+    android:textSize="30sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<androidx.cardview.widget.CardView
+android:id="@+id/balanceCard"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="16dp"
+android:layout_marginTop="25dp"
+android:layout_marginEnd="16dp"
+app:cardCornerRadius="12dp"
+app:cardElevation="4dp"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
     <TextView
-        android:id="@+id/toolbarTitle"
-        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_reg"
-        android:text="My Wallet"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Total Balance"
+        android:fontFamily="@font/roboto_black"
+        android:textColor="#777777"
+    android:textSize="16sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/balanceCard"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txt_total"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
+        android:layout_marginTop="8dp"
+        android:text="J$0.00"
+        android:textColor="#333333"
+    android:textSize="36sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="24dp">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Balance"
-                android:fontFamily="@font/roboto_black"
-                android:textColor="#888888"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="J$0.00"
-                android:textColor="#3C3C3C"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
     <!-- Income and Expense Cards -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
+<androidx.cardview.widget.CardView
+android:id="@+id/cardView"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginStart="16dp"
+android:layout_marginTop="16dp"
+android:layout_marginEnd="8dp"
+app:cardCornerRadius="16dp"
+app:cardElevation="4dp"
+app:layout_constraintEnd_toStartOf="@+id/cardView2"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@id/balanceCard">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/balanceCard">
+        android:text="Expense"
+        android:textColor="#F44336"
+    android:fontFamily="@font/roboto_reg"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expense"
-                android:textColor="#D32F2F"
-                android:fontFamily="@font/roboto_reg"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txtExpenseTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="J$0.00"
-                android:textColor="#D32F2F"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txtExpenseTotal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/balanceCard">
+        android:text="J$0.00"
+        android:textColor="#F44336"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias=".5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/txtIncomeTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Income"
-                android:fontFamily="@font/roboto_reg"
-                android:textColor="#388E3C"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<androidx.cardview.widget.CardView
+android:id="@+id/cardView2"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="16dp"
+android:layout_marginEnd="16dp"
+app:cardCornerRadius="16dp"
+app:cardElevation="4dp"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toEndOf="@+id/cardView"
+app:layout_constraintTop_toBottomOf="@+id/balanceCard">
 
-            <TextView
-                android:id="@+id/incomeTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="J$0.00"
-                android:textColor="#388E3C"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtIncomeTotal" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/txtIncomeTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Income"
+        android:fontFamily="@font/roboto_reg"
+        android:textColor="#4CAF50"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/incomeTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="J$0.00"
+        android:textColor="#4CAF50"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias=".5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txtIncomeTotal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
     <!-- Transactions Section -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+<androidx.constraintlayout.widget.ConstraintLayout
+android:id="@+id/constraintLayout2"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="32dp"
+android:background="#FFFFFF"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@+id/cardView"
+app:layout_constraintVertical_bias="0.0">
+
+<TextView
+    android:id="@+id/txt_transactions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="Transactions"
+    android:textColor="#333333"
+android:textSize="20sp"
+android:textStyle="bold"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/txtViewAll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:clickable="true"
+    android:text="View All"
+    android:textColor="#2196F3"
+android:textSize="14sp"
+android:textStyle="bold"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/preview_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:background="#FFFFFF"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/txt_transactions"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/txt_transactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Transactions"
-            android:textColor="#3C3C3C"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtViewAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:text="View All"
-            android:textColor="#3C3C3C"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/preview_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_transactions"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Floating Action Button -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Add Transaction"
-        android:textColor="@android:color/white"
-        app:backgroundTint="#6E6E6E"
-        app:iconTint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintVertical_bias="0.95"
-        app:rippleColor="#33191919" />
+<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+android:id="@+id/fab"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+android:text="Add"
+app:icon="@drawable/fab_add"
+android:textColor="@android:color/white"
+app:backgroundTint="#4169E1"
+    app:iconTint="@android:color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.95"
+    app:layout_constraintVertical_bias="0.95"
+    app:rippleColor="#33191919" />
 
     <!-- Floating Action Buttons for adding expense and income -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/money_decrease"
-        app:backgroundTint="#D32F2F"
-        app:layout_constraintBottom_toTopOf="@+id/fab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+android:id="@+id/fabAddExpense"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+android:src="@drawable/money_decrease"
+app:backgroundTint="#F44336"
+    app:layout_constraintBottom_toTopOf="@+id/fab"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:tint="@android:color/white" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/money_increase"
-        app:backgroundTint="#388E3C"
-        app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+android:id="@+id/fabAddIncome"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+android:src="@drawable/money_increase"
+app:backgroundTint="#4CAF50"
+    app:layout_constraintBottom_toTopOf="@+id/fabAddExpense"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:tint="@android:color/white" />
 
     <!-- Text labels for the floating action buttons -->
-    <TextView
-        android:id="@+id/addExpenseText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:background="@android:color/white"
-        android:padding="8dp"
-        android:text="Add Expense"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@id/fabAddExpense"
-        app:layout_constraintEnd_toStartOf="@id/fabAddExpense"
-        app:layout_constraintTop_toTopOf="@id/fabAddExpense" />
+<TextView
+android:id="@+id/addExpenseText"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginRight="5dp"
+android:background="@android:color/white"
+android:padding="8dp"
+android:text="Add Expense"
+android:textColor="#333333"
+app:layout_constraintBottom_toBottomOf="@id/fabAddExpense"
+    app:layout_constraintEnd_toStartOf="@id/fabAddExpense"
+    app:layout_constraintTop_toTopOf="@id/fabAddExpense" />
 
-    <TextView
-        android:id="@+id/addIncomeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:background="@android:color/white"
-        android:padding="8dp"
-        android:text="Add Income"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@id/fabAddIncome"
-        app:layout_constraintEnd_toStartOf="@id/fabAddIncome"
-        app:layout_constraintTop_toTopOf="@id/fabAddIncome" />
+<TextView
+android:id="@+id/addIncomeText"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginRight="5dp"
+android:background="@android:color/white"
+android:padding="8dp"
+android:text="Add Income"
+android:textColor="#333333"
+    app:layout_constraintBottom_toBottomOf="@id/fabAddIncome"
+    app:layout_constraintEnd_toStartOf="@id/fabAddIncome"
+    app:layout_constraintTop_toTopOf="@id/fabAddIncome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
