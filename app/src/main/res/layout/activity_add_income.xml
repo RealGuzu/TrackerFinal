@@ -9,143 +9,126 @@
     tools:context=".Activities.add_income"
     tools:ignore="HardcodedText">
 
-    <!-- Title TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtAddTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_reg"
         android:text="Add Expense"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Expense Name EditText -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilIncomeName"
+    <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAddTitle"
-        app:boxBackgroundColor="#E0E0E0"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        >
+        android:layout_marginTop="8dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editIncomeName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilIncomeName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expense Name"
-            android:textColorHint="#616161" />
+            app:boxBackgroundColor="#E0E0E0">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editIncomeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Expense Name"
+                android:textColorHint="#616161" />
 
-    <!-- Amount EditText -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilIncomeName"
-        app:boxBackgroundColor="#E0E0E0"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextAmount"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAmount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:inputType="numberDecimal"
-            android:textColorHint="#616161" />
+            android:layout_marginTop="8dp"
+            app:boxBackgroundColor="#E0E0E0"
+            app:prefixText="@string/prefix">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="numberDecimal"
+                android:textColorHint="#616161" />
 
-    <!-- Category Spinner -->
-    <TextView
-        android:id="@+id/txtCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Category"
-        android:textColor="#616161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilAmount" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCategory"
-        android:background="@drawable/spinner_background_with_arrow"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:spinnerMode="dropdown" />
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Category"
+            android:textColor="#616161" />
 
-    <!-- Payment Method TextView -->
-    <TextView
-        android:id="@+id/txtPaymentMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Payment Method"
-        android:textColor="#616161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/spinner_background_with_arrow"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:spinnerMode="dropdown" />
 
-    <!-- Payment Method Spinner -->
-    <Spinner
-        android:id="@+id/spinMethod"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPaymentMethod"
-        android:background="@drawable/spinner_background_with_arrow"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:spinnerMode="dropdown" />
+        <TextView
+            android:id="@+id/txtPaymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Payment Method"
+            android:textColor="#616161" />
 
-    <!-- Submit Button -->
+        <Spinner
+            android:id="@+id/spinMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/spinner_background_with_arrow"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmit"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/button_color_selector"
-        app:backgroundTint="#919191"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#ECEFF5"
+        android:elevation="6dp"
         android:text="Submit"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp"
-        app:cornerRadius="25dp"
+        android:textColor="#4176E1"
+        app:cornerRadius="50dp"
+        app:icon="@drawable/fab_add"
+        app:iconTint="#4176E1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinMethod" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+        android:stateListAnimator="@null"
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

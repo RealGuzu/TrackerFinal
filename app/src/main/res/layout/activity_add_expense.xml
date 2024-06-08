@@ -60,6 +60,7 @@
         app:endIconMode="clear_text"
         app:boxStrokeColor="#4169E1"
         app:boxBackgroundColor="#E0E0E0"
+        app:prefixText="@string/prefix"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
