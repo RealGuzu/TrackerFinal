@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         updateIncome();
         // Initially hide the extended FAB options
         hideFabMenu();
+
+        Window window  = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
     }
 
     private void initVews() {

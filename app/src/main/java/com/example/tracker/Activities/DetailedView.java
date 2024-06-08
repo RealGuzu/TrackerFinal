@@ -3,6 +3,7 @@ package com.example.tracker.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -49,6 +50,8 @@ public class DetailedView extends AppCompatActivity {
 
         fragmentTransaction.commit();
 
+        Window window  = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -85,4 +88,5 @@ public class DetailedView extends AppCompatActivity {
         Intent intent = new Intent (this, MainActivity.class);
         startActivity(intent);
     }
+
 }

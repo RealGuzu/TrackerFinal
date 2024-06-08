@@ -4,7 +4,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3D3D3"
+    android:background="#E3E0E0"
     tools:context=".Activities.MainActivity">
 
     <TextView
@@ -221,7 +221,7 @@
         android:layout_margin="16dp"
         android:text="Add Transaction"
         android:textColor="@android:color/white"
-        app:backgroundTint="#3C3C3C"
+        app:backgroundTint="#6E6E6E"
         app:iconTint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

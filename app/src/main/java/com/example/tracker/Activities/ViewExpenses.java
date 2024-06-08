@@ -3,6 +3,7 @@ package com.example.tracker.Activities;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,9 @@ public class ViewExpenses extends AppCompatActivity implements onTransactionCLic
         setupRecyclerView();
         setupSearchView();
         setupDatabase();
+
+        Window window  = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

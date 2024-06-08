@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -46,6 +47,9 @@ public class add_income extends AppCompatActivity {
         setupPaymentMethodSpinner();
         setupSubmitButton();
         setupListeners();
+
+        Window window  = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
     }
 
     private void initViews() {
