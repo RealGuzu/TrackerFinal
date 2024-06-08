@@ -4,7 +4,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3E0E0"
+    android:background="#C3C3C3"
     tools:context=".Activities.MainActivity">
 
     <TextView
@@ -12,11 +12,13 @@
         style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Wallet"
-        android:fontFamily="@font/roboto_reg"
-        android:textColor="#505050"
         android:layout_margin="10dp"
-        android:textSize="25dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_reg"
+        android:text="My Wallet"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
