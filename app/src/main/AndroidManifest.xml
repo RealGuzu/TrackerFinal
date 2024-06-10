@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Tracker"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.EditTransactionActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.add_income"
             android:exported="false" />
         <activity

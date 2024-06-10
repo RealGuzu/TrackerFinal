@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="income_categories">
+        <item>SelectCategory</item>
         <item>Salary</item>
         <item>Business</item>
         <item>Investment</item>
@@ -16,12 +17,30 @@
         <item>Other</item>
     </string-array>
     <string-array name="payment_methods">
+        <item> Select Method</item>
+
         <item>Cash</item>
         <item>Credit Card</item>
         <item>Debit Card</item>
         <item>Bank Transfer</item>
         <item>Mobile Payment</item>
         <item>Other</item>
+    </string-array>
+    <string-array name="expense_categories">
+        <item>SelectCategory</item>
+        <item>Food and Groceries</item>
+        <item>Housing</item>
+        <item>Transportation</item>
+        <item>Healthcare</item>
+        <item>Personal Care</item>
+        <item>Entertainment</item>
+        <item>Debts</item>
+        <item>Education</item>
+        <item>Savings</item>
+        <item>Gifts and Donations</item>
+        <item>Travel</item>
+        <item>Insurance</item>
+        <item>Miscellaneous</item>
     </string-array>
 
 

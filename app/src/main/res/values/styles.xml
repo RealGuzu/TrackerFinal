@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <!-- Text color on the primary color -->
+        <item name="colorOnPrimary">@color/onPrimaryColor</item>
+        <!-- Surface color for backgrounds -->
+        <item name="colorSurface">@color/surfaceColor</item>
+        <!-- Text color on the surface -->
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+        <!-- Text color on a surface, variant -->
+        <item name="colorOnSurfaceVariant">@color/onSurfaceVariantColor</item>
+        <!-- Other theme attributes -->
+        <!-- For example: -->
+        <!-- <item name="android:windowBackground">@color/background_color</item> -->
+    </style>
+</resources>

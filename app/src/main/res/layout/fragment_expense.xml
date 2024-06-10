@@ -7,124 +7,128 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-        <!-- Title EditText -->
-        <EditText
-            android:id="@+id/expenseTitle"
+        <!-- Title TextInputLayout -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilExpenseTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="25dp"
-            android:drawableStart="@drawable/title_icon"
-            android:hint="Title"
-            android:inputType="text" />
+            android:layout_marginTop="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/primary">
 
-        <!-- Amount EditText -->
-        <EditText
-            android:id="@+id/expenseAmount"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:inputType="text"
+                android:drawableStart="@drawable/title_icon" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Amount TextInputLayout -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilExpenseAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/expenseTitle"
-            android:drawableStart="@drawable/baseline_attach_money_24"
-            android:hint="Amount"
-            android:inputType="number|numberDecimal" />
+            android:layout_below="@id/tilExpenseTitle"
+            android:layout_marginTop="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="number|numberDecimal"
+                android:drawableStart="@drawable/baseline_attach_money_24" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Category TextView -->
         <TextView
-            android:id="@+id/spinCategory"
+            android:id="@+id/txtCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/expenseAmount"
-            android:text="Category" />
+            android:layout_below="@id/tilExpenseAmount"
+            android:layout_marginTop="16dp"
+            android:text="Category"
+            android:textColor="@color/primary"
+            android:textStyle="bold" />
 
         <!-- Category Spinner -->
         <Spinner
             android:id="@+id/selectCategorys"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/spinCategory" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtCategory"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_background_with_arrow"
+            android:padding="8dp" />
 
         <!-- Payment Method TextView -->
         <TextView
             android:id="@+id/txtPaymentMethod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
             android:layout_below="@id/selectCategorys"
-            android:text="Payment Method" />
+            android:layout_marginTop="16dp"
+            android:text="Payment Method"
+            android:textColor="@color/primary"
+            android:textStyle="bold" />
 
         <!-- Payment Method Spinner -->
         <Spinner
             android:id="@+id/spinMethod"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/txtPaymentMethod" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPaymentMethod"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_background_with_arrow"
+            android:padding="8dp" />
 
         <!-- Display Category TextView -->
         <TextView
             android:id="@+id/displayCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="22dp"
-            android:layout_alignTop="@id/selectCategorys"
-            android:layout_toEndOf="@id/selectCategorys"
-            android:text="Display Category" />
+            android:layout_below="@id/selectCategorys"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:text="Display Category"
+            android:textColor="@color/primary"
+            android:textStyle="bold" />
 
         <!-- Display Method TextView -->
         <TextView
             android:id="@+id/txtDisplayMeth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="22dp"
-            android:layout_alignTop="@id/spinMethod"
-            android:layout_toEndOf="@id/spinMethod"
-            android:text="Display Method" />
+            android:layout_below="@id/spinMethod"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:text="Display Method"
+            android:textColor="@color/primary"
+            android:textStyle="bold" />
 
         <!-- Save Button -->
-<!--        <Button-->
-<!--            android:id="@+id/btnSubmit"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            -->
-<!--            android:text="Save" />-->
-
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="32dp"
             android:layout_below="@id/txtDisplayMeth"
             android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/black"
-            android:padding="15dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primary"
+            android:padding="16dp"
             android:text="Save"
             android:textColor="@color/white"
-            app:cornerRadius="10dp"
+            app:cornerRadius="8dp"
             app:icon="@drawable/forward"
-            app:iconGravity="end"
             app:iconTint="@color/white" />
 
     </RelativeLayout>

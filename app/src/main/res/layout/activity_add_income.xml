@@ -8,14 +8,28 @@
     android:background="#F5F5F5"
     tools:context=".Activities.add_income"
     tools:ignore="HardcodedText">
-
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="?attr/colorSurface"
+        android:title="Edit Transaction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back"
+        app:navigationIconTint="@color/onSurfaceColor"
+        app:titleCentered="true"
+        app:titleTextColor="?attr/colorOnSurface" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtAddTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_reg"
-        android:text="Add Expense"
+        android:text="Add Income"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAddTitle"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="100dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilIncomeName"
@@ -45,7 +59,7 @@
                 android:id="@+id/editIncomeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Expense Name"
+                android:hint="Income Title"
                 android:textColorHint="#616161" />
 
         </com.google.android.material.textfield.TextInputLayout>

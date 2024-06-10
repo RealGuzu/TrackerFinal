@@ -10,6 +10,36 @@
     <color name="colorPrimary">#515151</color>
     <color name="income_background">#C8E6C9</color> <!-- Greenish background for income -->
     <color name="expense_background">#FFCDD2</color> <!-- Reddish background for expense -->
+    <!-- Primary color definition -->
+    <color name="primary">#2196F3</color>
+    <!-- Other color definitions -->
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="background">#FFFFFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#B00020</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#000000</color>
+    <color name="on_background">#000000</color>
+    <color name="on_surface">#000000</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="primaryColor">#1976D2</color>
+    <color name="primaryLightColor">#BBDEFB</color>
+    <color name="primaryDarkColor">#0D47A1</color>
 
+    <!-- Text colors -->
+    <color name="onPrimaryColor">#FFFFFF</color> <!-- White text on primary -->
+    <color name="onSurfaceColor">#212121</color> <!-- Dark text on light background -->
+    <color name="onSurfaceVariantColor">#757575</color> <!-- Light text on light background -->
 
+    <!-- Surface colors -->
+    <color name="surfaceColor">#FFFFFF</color> <!-- White background -->
+    <color name="surfaceDarkColor">#FAFAFA</color> <!-- Light gray background -->
+
+    <!-- Accent colors -->
+    <color name="accentColor">#FF4081</color> <!-- Material pink A200 -->
+    <color name="accentLightColor">#FF80AB</color> <!-- Lighter shade of pink -->
+
+    <!-- Custom colors -->
+    <color name="customColor">#4CAF50</color> <!-- Custom green color -->
 </resources>

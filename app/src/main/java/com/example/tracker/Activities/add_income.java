@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DatabaseHelper;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.DateFormat;
@@ -60,6 +61,16 @@ public class add_income extends AppCompatActivity {
         titleEditText = findViewById(R.id.editIncomeName);
 
         type = getIntent().getStringExtra("type");
+
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Perform your desired action here, such as navigating back
+                finish();
+            }
+        });
+
     }
 
     private void setupCategorySpinner() {

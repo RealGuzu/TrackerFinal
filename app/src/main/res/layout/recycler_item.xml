@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recCard"
@@ -8,66 +9,91 @@
     android:layout_marginHorizontal="@dimen/default_margin"
     android:layout_marginVertical="@dimen/default_margin"
     app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="8dp">
+    app:cardElevation="6dp"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:stateListAnimator="@null"
+    >
 
     <LinearLayout
+        android:id="@+id/cardContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="#28000000"
 
-        <!-- Title TextView -->
+    >
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/recTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_reg"
+        android:text="Title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"/>
+
+    <!-- Amount and Category Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <!-- Amount TextView -->
         <TextView
-            android:id="@+id/recTitle"
-            android:layout_width="match_parent"
+            android:id="@+id/recAmount"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/playfair2"
-            android:text="Title"
-            android:textColor="@color/black"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_reg"
+            android:text="Amount"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/amount_text_size"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
 
-        <!-- Amount and Category Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <!-- Amount TextView -->
-            <TextView
-                android:id="@+id/recAmount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Amount"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                android:textSize="@dimen/amount_text_size" />
-
-            <!-- Category TextView -->
-            <TextView
-                android:id="@+id/recCategory"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Category"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/black"
-                android:textSize="@dimen/category_text_size" />
-
-        </LinearLayout>
-
-        <!-- Description TextView -->
+        <!-- Category TextView -->
         <TextView
-            android:id="@+id/recMethod"
-            android:layout_width="match_parent"
+            android:id="@+id/recCategory"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Method"
-            android:textColor="@color/black"
-            android:textSize="@dimen/description_text_size" />
+            android:layout_weight="1"
+            android:text="Category"
+            android:fontFamily="@font/roboto_reg"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:textSize="@dimen/category_text_size"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/recMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_reg"
+        android:text="Method"
+        android:textColor="@color/white"
+        android:textSize="@dimen/description_text_size"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"/>
+
+</LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>

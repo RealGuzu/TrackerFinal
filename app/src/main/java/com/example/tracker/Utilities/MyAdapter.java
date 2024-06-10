@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tracker.Activities.DetailedView;
@@ -43,11 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DataClass data = dataList.get(position);
         int pos = position;
-// Ensure corner radius is applied
-        float cornerRadius = context.getResources().getDimension(R.dimen.card_corner_radius);
-        holder.recCard.setRadius(cornerRadius);
 
-        // Log data for debugging
         Log.d(TAG, "Binding data at position: " + position + " with title: " + data.getTitle()
                 + ", amount: " + data.getAmount()
                 + ", category: " + data.getCategory()
@@ -59,18 +56,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.recMethod.setText(data.getPaymentMethod());
 
         if ("expense".equals(data.getType())) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#FFCDD2")); // Set your expense color
+            holder.recCard.setBackground(ContextCompat.getDrawable(context, R.drawable.expense_gradient));
         } else if ("income".equals(data.getType())) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#C8E6C9")); // Set your income color
+            holder.recCard.setBackground(ContextCompat.getDrawable(context, R.drawable.income_gradient));
         }
+
+
+
+
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onTransactionCLick.onTransactionItemClick(pos);
-
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

@@ -53,13 +53,12 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     RecyclerView recyclerView;
     private String deletedExpense;
     private int pos;
-    private TextView totalexpense,totalincome;
+    private TextView totalexpense, totalincome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         initVews();
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         // Initially hide the extended FAB options
         hideFabMenu();
 
-        Window window  = this.getWindow();
+        Window window = this.getWindow();
         window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
     }
 
@@ -241,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     public void onTransactionItemClick(int position) {
         pos = position;
 
-        Intent intent = new Intent(getApplicationContext(), DetailedView.class);
+        Intent intent = new Intent(getApplicationContext(), EditTransactionActivity.class);
         intent.putParcelableArrayListExtra("dataList", (ArrayList<? extends Parcelable>) dataList);
 
         startActivity(intent);
@@ -330,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         double totalExpense = 0;
         for (int i = 0; i < adapter.getItemCount(); i++) {
             DataClass data = dataList.get(i);
-            if (data.getType().equals("expense")) {
+            if ("expense".equals(data.getType())) {
                 totalExpense += Double.parseDouble(data.getAmount());
             }
         }
@@ -340,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         totalexpense.setText(formattedExpense);
     }
 
+
     private void updateIncome() {
         double totalIncome = 0;
         double totalExpense = 0;
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         // Calculate total expense
         for (int i = 0; i < adapter.getItemCount(); i++) {
             DataClass data = dataList.get(i);
-            if (data.getType().equals("expense")) {
+            if ("expense".equals(data.getType())) {
                 totalExpense += Double.parseDouble(data.getAmount());
             }
         }
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         // Calculate total income
         for (int i = 0; i < adapter.getItemCount(); i++) {
             DataClass data = dataList.get(i);
-            if (data.getType().equals("income")) {
+            if ("income".equals(data.getType())) {
                 totalIncome += Double.parseDouble(data.getAmount());
             }
         }

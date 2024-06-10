@@ -23,7 +23,7 @@ android:textColor="#333333"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
 android:id="@+id/balanceCard"
 android:layout_width="0dp"
 android:layout_height="wrap_content"
@@ -34,12 +34,16 @@ app:cardCornerRadius="12dp"
 app:cardElevation="4dp"
 app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
+app:layout_constraintTop_toBottomOf="@id/toolbarTitle"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:backgroundTint="@color/white"
+    >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:padding="24dp"
+    >
 
     <TextView
         android:id="@+id/textView2"
@@ -65,10 +69,10 @@ app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
     <!-- Income and Expense Cards -->
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
 android:id="@+id/cardView"
 android:layout_width="0dp"
 android:layout_height="wrap_content"
@@ -79,7 +83,9 @@ app:cardCornerRadius="16dp"
 app:cardElevation="4dp"
 app:layout_constraintEnd_toStartOf="@+id/cardView2"
 app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@id/balanceCard">
+app:layout_constraintTop_toBottomOf="@id/balanceCard"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:backgroundTint="#FFF1F1">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -113,9 +119,9 @@ app:layout_constraintTop_toBottomOf="@id/balanceCard">
     app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
 android:id="@+id/cardView2"
 android:layout_width="0dp"
 android:layout_height="wrap_content"
@@ -125,7 +131,10 @@ app:cardCornerRadius="16dp"
 app:cardElevation="4dp"
 app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintStart_toEndOf="@+id/cardView"
-app:layout_constraintTop_toBottomOf="@+id/balanceCard">
+app:layout_constraintTop_toBottomOf="@+id/balanceCard"
+    android:backgroundTint="#F2FFF1"
+    style="@style/Widget.Material3.CardView.Elevated"
+   >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -159,7 +168,7 @@ app:layout_constraintTop_toBottomOf="@+id/balanceCard">
     app:layout_constraintTop_toBottomOf="@+id/txtIncomeTotal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
     <!-- Transactions Section -->
 <androidx.constraintlayout.widget.ConstraintLayout

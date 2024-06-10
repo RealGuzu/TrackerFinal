@@ -134,7 +134,7 @@ public class expense extends Fragment {
             return;
         }
 
-        DataClass dataClass = new DataClass(title, amount, category, method);
+        DataClass dataClass = new DataClass(title, amount, category, method );
         int expenseId = getArguments().getInt("expense_id", -1);
 
         if (expenseId != -1) {
