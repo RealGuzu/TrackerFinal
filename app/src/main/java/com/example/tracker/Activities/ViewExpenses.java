@@ -8,9 +8,13 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.tracker.Fragments.FullscreenDialogFragment;
 import com.example.tracker.Utilities.onTransactionCLick;
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
@@ -23,7 +27,7 @@ import com.google.gson.JsonSyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewExpenses extends AppCompatActivity implements onTransactionCLick {
+public class ViewExpenses extends AppCompatActivity implements onTransactionCLick, FullscreenDialogFragment.FullscreenDialogListener {
 
     private RecyclerView recyclerView;
     private List<DataClass> dataList;
@@ -160,6 +164,13 @@ public class ViewExpenses extends AppCompatActivity implements onTransactionCLic
 
     @Override
     public void onTransactionItemClick(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FullscreenDialogFragment dialogFragment = new FullscreenDialogFragment();
+        dialogFragment.show(fragmentManager, "dialog");
+    }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // Perform any necessary actions when the positive button in the dialog is clicked
     }
 }

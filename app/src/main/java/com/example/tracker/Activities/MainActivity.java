@@ -3,22 +3,29 @@ package com.example.tracker.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tracker.Fragments.FullscreenDialogFragment;
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
 import com.example.tracker.Utilities.DatabaseHelper;
@@ -36,7 +43,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements onTransactionCLick {
+public class MainActivity extends AppCompatActivity implements onTransactionCLick, FullscreenDialogFragment.FullscreenDialogListener  {
 
     private ExtendedFloatingActionButton fab;
     private FloatingActionButton fabAddExpense;
@@ -57,9 +64,14 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_layout), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         initVews();
         setupRecyclerView();
@@ -69,8 +81,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         // Initially hide the extended FAB options
         hideFabMenu();
 
-        Window window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.grey_font));
+
     }
 
     private void initVews() {
@@ -239,11 +250,21 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     @Override
     public void onTransactionItemClick(int position) {
         pos = position;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FullscreenDialogFragment dialogFragment = new FullscreenDialogFragment(); // Corrected variable name
+        dialogFragment.show(fragmentManager, "dialog");
+    }
 
-        Intent intent = new Intent(getApplicationContext(), EditTransactionActivity.class);
-        intent.putParcelableArrayListExtra("dataList", (ArrayList<? extends Parcelable>) dataList);
-
-        startActivity(intent);
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        ArrayList<DataClass> dataList = new ArrayList<>();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("dataList", dataList);
+        args.putInt("position", pos);
+        dialog.setArguments(args); // Updated method call to set arguments
+        if (dialog instanceof FullscreenDialogFragment) {
+            ((FullscreenDialogFragment) dialog).updateContent(); // Call updateContent method
+        }
     }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
@@ -369,5 +390,6 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         totalincome.setText(formattedIncome);
         txtTotal.setText(formattedIncome);
     }
+
 
 }
