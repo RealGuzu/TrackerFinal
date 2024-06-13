@@ -74,7 +74,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
 
-
+    public void onItemDismiss(int position) {
+        dataList.remove(position);
+        notifyItemRemoved(position);
+    }
     @Override
     public int getItemCount() {
         return dataList.size();

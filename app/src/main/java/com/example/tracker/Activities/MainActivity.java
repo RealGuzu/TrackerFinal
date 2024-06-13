@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     private int pos;
     private TextView totalexpense, totalincome;
 
+    View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EdgeToEdge.enable(this);
@@ -251,20 +253,21 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
     public void onTransactionItemClick(int position) {
         pos = position;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FullscreenDialogFragment dialogFragment = new FullscreenDialogFragment(); // Corrected variable name
+        FullscreenDialogFragment dialogFragment = new FullscreenDialogFragment();
+
+        // Create a bundle with the necessary data
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("dataList", new ArrayList<>(dataList)); // Ensure dataList is passed as ArrayList
+        args.putInt("position", pos);
+        dialogFragment.setArguments(args); // Set arguments for the fragment
+
         dialogFragment.show(fragmentManager, "dialog");
     }
 
+
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        ArrayList<DataClass> dataList = new ArrayList<>();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("dataList", dataList);
-        args.putInt("position", pos);
-        dialog.setArguments(args); // Updated method call to set arguments
-        if (dialog instanceof FullscreenDialogFragment) {
-            ((FullscreenDialogFragment) dialog).updateContent(); // Call updateContent method
-        }
+
     }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
@@ -314,7 +317,11 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         try {
             int rowsDeleted = db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMN_ID + "=?", new String[]{expenseKey});
             if (rowsDeleted > 0) {
+                // Update UI
                 Snackbar.make(view, "Expense deleted successfully", Snackbar.LENGTH_LONG).show();
+                loadDataFromDatabase(); // Reload data from database
+                updateExpense(); // Update total expense
+                updateIncome(); // Update total income
             } else {
                 Snackbar.make(view, "No expense found with the given key", Snackbar.LENGTH_LONG).show();
             }
@@ -327,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
         }
     }
 
+
     private void reinsertExpenseToDatabase(DataClass dataClass, View view) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         try {
@@ -336,7 +344,12 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
             values.put(DatabaseHelper.COLUMN_CATEGORY, dataClass.getCategory());
             values.put(DatabaseHelper.COLUMN_METHOD, dataClass.getPaymentMethod());
             db.insert(DatabaseHelper.TABLE_NAME, null, values);
+
+            // Update UI
             Snackbar.make(view, "Expense reinserted successfully", Snackbar.LENGTH_LONG).show();
+            loadDataFromDatabase(); // Reload data from database
+            updateExpense(); // Update total expense
+            updateIncome(); // Update total income
         } catch (Exception e) {
             Snackbar.make(view, "Failed to reinsert expense: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
         } finally {
@@ -345,6 +358,7 @@ public class MainActivity extends AppCompatActivity implements onTransactionCLic
             }
         }
     }
+
 
     private void updateExpense() {
         double totalExpense = 0;

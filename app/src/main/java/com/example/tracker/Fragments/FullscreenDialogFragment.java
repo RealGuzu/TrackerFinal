@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.tracker.R;
 import com.example.tracker.Utilities.DataClass;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -42,29 +45,27 @@ public class FullscreenDialogFragment extends DialogFragment {
         }
     }
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dialog, container, false);
 
-        // Find toolbar and set close button click listener
         MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> dismiss());
 
-        // Find button and set click listener
         Button btnSubmit = view.findViewById(R.id.btnComplete);
         btnSubmit.setOnClickListener(v -> {
-            // Handle the submit button click here
-            // For example, if you want to dismiss the dialog when the submit button is clicked:
             if (listener != null) {
                 listener.onDialogPositiveClick(FullscreenDialogFragment.this);
             }
             dismiss();
         });
 
+        // Update content when the view is created
+        updateContent(view);
+
         return view;
     }
+
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -89,19 +90,59 @@ public class FullscreenDialogFragment extends DialogFragment {
             }
         }
     }
-    public void updateContent() {
-        // Retrieve arguments
+
+    public void updateContent(View view) {
         Bundle args = getArguments();
         if (args != null) {
             ArrayList<DataClass> dataList = args.getParcelableArrayList("dataList");
             int position = args.getInt("position");
 
-            // Update dialog content based on dataList and position
-            // For example:
-            // if (dataList != null && position >= 0 && position < dataList.size()) {
-            //     DataClass data = dataList.get(position);
-            //     // Update UI elements with data
-            // }
+            if (dataList != null && position >= 0 && position < dataList.size()) {
+                DataClass data = dataList.get(position);
+
+                TextInputEditText transactionNameEditText = view.findViewById(R.id.editTransactionName);
+                TextInputEditText amountEditText = view.findViewById(R.id.editTextAmount);
+                Spinner categorySpinner = view.findViewById(R.id.spinnerCategory);
+                Spinner paymentMethodSpinner = view.findViewById(R.id.spinMethod);
+
+                // Set values to views
+                transactionNameEditText.setText(data.getTitle());
+                amountEditText.setText(data.getAmount());
+
+                // Load spinner data based on type
+                if ("Income".equals(data.getType())) {
+                    loadSpinnerData(categorySpinner, R.array.income_categories);
+                } else if ("Expense".equals(data.getType())) {
+                    loadSpinnerData(categorySpinner, R.array.expense_categories);
+                }
+                loadSpinnerData(paymentMethodSpinner, R.array.payment_methods);
+
+                // Set selected spinner values
+                setSpinnerToValue(categorySpinner, data.getCategory());
+                setSpinnerToValue(paymentMethodSpinner, data.getPaymentMethod());
+
+            } else {
+                dismiss(); // Dismiss the dialog if data is invalid
+            }
+        } else {
+            dismiss(); // Dismiss the dialog if arguments are null
+        }
+    }
+
+
+
+    private void loadSpinnerData(Spinner spinner, int arrayResourceId) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), arrayResourceId, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private void setSpinnerToValue(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
         }
     }
 }
